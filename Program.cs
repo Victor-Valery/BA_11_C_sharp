@@ -27,12 +27,14 @@ namespace BA_11_C_sharp
             //    Console.WriteLine(item);
             //}
 
+            //////////////////////////////////////////////////////
+
+
             // 2. ÖRNEK :  Elimizde 10 tane not degeri olsun. Bu not degerlerine göre;
             // 1- 50 nin altindaki notlari kaldi seklinde saysin.
             // 2- 50 nin üstündeki notlari gecti seklinde saysin.
             // 3- Gecen ve kalan notlarin ortalamasini yazdirsin.
-
-            int[] notlar = { 40, 50, 70, 20, 15, 89, 36, 99, 29, 39 };
+            // 4- Notlari dinamik olarak kullannicidan alin.
 
             int gecen = 0;
             int kalan = 0;
@@ -40,29 +42,62 @@ namespace BA_11_C_sharp
             double gecenToplam = 0;
             double kalanToplam = 0;
 
-            for (int i = 0; i < notlar.Length; i++)
+            while (true)
             {
-                if (notlar[i] >= 50)
+                try
                 {
-                    gecenToplam += notlar[i];
-                    gecen++;
+                    Console.Write("Kac adet sinav notu girilecek: ");
+                    int eleman = int.Parse(Console.ReadLine());
+
+                    int[] notlar = new int[eleman];
+
+                    for (int i = 0; i < notlar.Length; i++)
+                    {
+                        Console.WriteLine($"{i + 1}. Sinav notu giriniz: ");
+                        int kontrol = int.Parse(Console.ReadLine());
+
+                        if (kontrol <= 100 && kontrol >= 0)
+                        {
+                             notlar[i] = kontrol;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Girilen not degeri 1 ile 100 arasinda olmalidir.");
+                            i--;
+                        }
+                    }
+
+                    for (int i = 0; i < notlar.Length; i++)
+                    {
+                        if (notlar[i] >= 50)
+                        {
+                            gecenToplam += notlar[i];
+                            gecen++;
+                        }
+                        else
+                        {
+                            kalanToplam += notlar[i];
+                            kalan++;
+                        }
+                    }
+
+                    Console.WriteLine("Gecen sayisi: " + gecen);
+                    Console.WriteLine("Kalan sayisi: " + kalan);
+
+                    Console.WriteLine("**********************");
+
+                    Console.WriteLine("Gecenlerin Ortalamasi :" + gecenToplam / gecen);
+                    Console.WriteLine("Kalanlarin Ortalamasi :" + kalanToplam / kalan);
                 }
-                else
+                catch
                 {
-                    kalanToplam += notlar[i];
-                    kalan++;
+                    Console.Beep();
+                    Console.Beep();
+                    Console.Beep();
+
+                    Console.WriteLine("Lütfen 1 ile 100 arasinda bir tamsayi giniz!");
                 }
             }
-
-            Console.WriteLine("Gecen sayisi: " + gecen);
-            Console.WriteLine("Kalan sayisi: " + kalan);
-
-            Console.WriteLine("**********************");
-
-            Console.WriteLine("Gecenlerin Ortalamasi :" + gecenToplam / gecen);
-            Console.WriteLine("Kalanlarin Ortalamasi :" + kalanToplam / kalan);
-
-
 
         }
     }
